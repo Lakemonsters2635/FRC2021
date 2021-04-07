@@ -1234,6 +1234,148 @@ public class AutonomousSequences {
         }
 
         
+        // public static CommandGroup slalom2() {
+
+        //         CommandGroup output = new CommandGroup();
+        //         Path slalomPath = new Path(Rotation2.ZERO);
+        //         IntakeActuateCommand raiseIntake = new IntakeActuateCommand(true, 1);
+
+
+        //         slalomPath.addSegment(
+        //                 new PathLineSegment(
+        //                         new Vector2(0,0),
+        //                         new Vector2(-24, 0)
+        //                 )
+        //         ); // drive forward
+
+        //         slalomPath.addSegment( // arc around D2
+        //                 new PathArcSegment(
+        //                         new Vector2(-24, 0),
+        //                         new Vector2(-52, -28), 
+        //                         new Vector2(-24, -28) 
+        //                 )
+        //         );
+                
+        //         slalomPath.addSegment( // arc around D4
+        //                 new PathArcSegment(
+        //                         new Vector2(-52, -28),
+        //                         new Vector2(-63.581, -60), 
+        //                         new Vector2(-102, -28) 
+        //                 )
+        //         );
+
+        //         slalomPath.addSegment( 
+        //                 new PathLineSegment(
+        //                         new Vector2(-63.581, -60),
+        //                         new Vector2(-240, -60)
+        //                 )
+        //         ); 
+
+        //         slalomPath.addSegment(
+        //                 new PathLineSegment(
+        //                         new Vector2(-240, -60),
+        //                         new Vector2(-240, 5)
+        //                 )
+        //         ); 
+                
+        //         slalomPath.addSegment( // drive to end of field arc
+        //                 new PathLineSegment(
+        //                         new Vector2(-240, 5),
+        //                         new Vector2(-252, 5) // 4/3 change
+        //                 )
+        //         ); 
+
+        //         slalomPath.addSegment( // arc around D4
+        //                 new PathArcSegment(
+        //                         new Vector2(-252, 5),
+        //                         new Vector2(-300, -48), 
+        //                         new Vector2(-272, -30) 
+        //                 )
+        //         );
+
+        //         slalomPath.addSegment( // arc around D4
+        //                 new PathArcSegment(
+        //                         new Vector2(-300, -48),
+        //                         new Vector2(-228, -35), 
+        //                         new Vector2(-272, -35) 
+        //                 )
+        //         );
+
+                
+        //         slalomPath.addSegment(
+        //                 new PathLineSegment(
+        //                         new Vector2(-228, -35),
+        //                         new Vector2(-234, 0)
+        //                 )
+        //         );
+        //         // slalomPath.addSegment( // end of arc and drives straight
+        //         //         new PathArcSegment(
+        //         //                 new Vector2(-235, -28),
+        //         //                 new Vector2(-210, 0),
+        //         //                 new Vector2(-216, -30)
+        //         //         )
+        //         // ); 
+
+        //         // Path fastDriveBackPath = new Path(Rotation2.ZERO);
+        //         // fastDriveBackPath.addSegment(
+        //         //         new PathLineSegment(
+        //         //                 new Vector2(0,0),
+        //         //                 new Vector2(193,0)
+        //         //         )
+        //         // );
+
+        //         slalomPath.addSegment(
+        //                 new PathLineSegment(
+        //                         new Vector2(-234, 0),
+        //                         new Vector2(-55, 0)
+        //                 )
+        //         ); 
+
+        //         //Path slalomPath2 = new Path(Rotation2.ZERO);
+
+        //         slalomPath.addSegment(
+        //                 new PathLineSegment(
+        //                         new Vector2(-55, 0),
+        //                         new Vector2(-55, -70)
+        //                 )
+        //         ); 
+                
+        //         slalomPath.addSegment(
+        //                 new PathLineSegment(
+        //                         new Vector2(-55, -70),
+        //                         new Vector2(0, -70)
+        //                 )
+        //         ); 
+
+        //         // dummy segment
+        //         slalomPath.addSegment(
+        //                 new PathLineSegment(
+        //                         new Vector2(0, -65),
+        //                         new Vector2(10, -65)
+        //                 )
+        //         ); 
+
+
+                
+        //         // Trajectory fastDriveBackTrajectory = new Trajectory(fastDriveBackPath, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
+        //         // AutonomousTrajectoryCommand fastDriveBackCommand = new AutonomousTrajectoryCommand(fastDriveBackTrajectory);
+
+        //         // Trajectory slalomPath2Trajectory = new Trajectory(slalomPath2, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
+        //         // AutonomousTrajectoryCommand slalomPath2Command = new AutonomousTrajectoryCommand(slalomPath2Trajectory);
+
+        //         Trajectory slalomTrajectory = new Trajectory(slalomPath, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
+        //         AutonomousTrajectoryCommand slalomCommand = new AutonomousTrajectoryCommand(slalomTrajectory);
+        //         output.addSequential(raiseIntake);
+        //         output.addSequential(slalomCommand); 
+        //         // output.addSequential(fastDriveBackCommand); 
+        //         // output.addSequential(slalomPath2Command); 
+
+
+
+        //         return output;
+        // }
+
+                        
         public static CommandGroup slalom2() {
 
                 CommandGroup output = new CommandGroup();
@@ -1241,12 +1383,12 @@ public class AutonomousSequences {
                 IntakeActuateCommand raiseIntake = new IntakeActuateCommand(true, 1);
 
 
-                slalomPath.addSegment(
+                slalomPath.addSegment( // drive forward
                         new PathLineSegment(
                                 new Vector2(0,0),
                                 new Vector2(-24, 0)
                         )
-                ); // drive forward
+                ); 
 
                 slalomPath.addSegment( // arc around D2
                         new PathArcSegment(
@@ -1262,116 +1404,86 @@ public class AutonomousSequences {
                                 new Vector2(-63.581, -60), 
                                 new Vector2(-102, -28) 
                         )
-                );
+                ); 
 
-                slalomPath.addSegment( 
+                // same as slalom3 until here
+                slalomPath.addSegment( // drive to D8 tangent
                         new PathLineSegment(
                                 new Vector2(-63.581, -60),
                                 new Vector2(-240, -60)
                         )
                 ); 
 
-                slalomPath.addSegment(
+                slalomPath.addSegment( // drive across gap between D8 and D10
                         new PathLineSegment(
                                 new Vector2(-240, -60),
                                 new Vector2(-240, 5)
                         )
                 ); 
                 
-                slalomPath.addSegment( // drive to end of field arc
+                slalomPath.addSegment( // drive forward a little 
                         new PathLineSegment(
                                 new Vector2(-240, 5),
-                                new Vector2(-252, 5) // 4/3 change
+                                new Vector2(-243, 5)
                         )
                 ); 
 
-                slalomPath.addSegment( // arc around D4
+                slalomPath.addSegment( // arc 1 around D10
                         new PathArcSegment(
-                                new Vector2(-252, 5),
-                                new Vector2(-300, -48), 
-                                new Vector2(-272, -30) 
-                        )
+                                new Vector2(-243, 5),
+                                new Vector2(-310, -25), 
+                                new Vector2(-270, -25) 
+                        ) // changed points to fit the circle
                 );
 
-                slalomPath.addSegment( // arc around D4
+                slalomPath.addSegment( // arc 2 around D10
                         new PathArcSegment(
-                                new Vector2(-300, -48),
-                                new Vector2(-228, -35), 
-                                new Vector2(-272, -35) 
+                                new Vector2(-310, -25),
+                                new Vector2(-252, -60), 
+                                new Vector2(-270, -25) 
+                        ) // changed points to fit the circle
+                );
+
+                slalomPath.addSegment( // end of arc and drives across gap
+                        new PathLineSegment(
+                                new Vector2(-252, -60),
+                                new Vector2(-252, 0)
                         )
                 );
 
-                
-                slalomPath.addSegment(
+                slalomPath.addSegment( // long drive back
                         new PathLineSegment(
-                                new Vector2(-228, -35),
-                                new Vector2(-234, 0)
-                        )
-                );
-                // slalomPath.addSegment( // end of arc and drives straight
-                //         new PathArcSegment(
-                //                 new Vector2(-235, -28),
-                //                 new Vector2(-210, 0),
-                //                 new Vector2(-216, -30)
-                //         )
-                // ); 
-
-                // Path fastDriveBackPath = new Path(Rotation2.ZERO);
-                // fastDriveBackPath.addSegment(
-                //         new PathLineSegment(
-                //                 new Vector2(0,0),
-                //                 new Vector2(193,0)
-                //         )
-                // );
-
-                slalomPath.addSegment(
-                        new PathLineSegment(
-                                new Vector2(-234, 0),
-                                new Vector2(-55, 0)
+                                new Vector2(-252, 0),
+                                new Vector2(-75, -2)
                         )
                 ); 
 
-                //Path slalomPath2 = new Path(Rotation2.ZERO);
-
-                slalomPath.addSegment(
+                slalomPath.addSegment( // drive to the left
                         new PathLineSegment(
-                                new Vector2(-55, 0),
-                                new Vector2(-55, -70)
+                                new Vector2(-75, -2),
+                                new Vector2(-75, -72)
                         )
                 ); 
                 
-                slalomPath.addSegment(
+                slalomPath.addSegment( // drive into end zone
                         new PathLineSegment(
-                                new Vector2(-55, -70),
-                                new Vector2(0, -70)
+                                new Vector2(-75, -72),
+                                new Vector2(0, -72)
                         )
                 ); 
-
-                // dummy segment
-                slalomPath.addSegment(
-                        new PathLineSegment(
-                                new Vector2(0, -65),
-                                new Vector2(10, -65)
-                        )
-                ); 
-
 
                 
-                // Trajectory fastDriveBackTrajectory = new Trajectory(fastDriveBackPath, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
-                // AutonomousTrajectoryCommand fastDriveBackCommand = new AutonomousTrajectoryCommand(fastDriveBackTrajectory);
-
-                // Trajectory slalomPath2Trajectory = new Trajectory(slalomPath2, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
-                // AutonomousTrajectoryCommand slalomPath2Command = new AutonomousTrajectoryCommand(slalomPath2Trajectory);
+                slalomPath.addSegment( // dummy segment
+                        new PathLineSegment(
+                                new Vector2(0, -72),
+                                new Vector2(10, -72)
+                        )
+                ); 
 
                 Trajectory slalomTrajectory = new Trajectory(slalomPath, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
                 AutonomousTrajectoryCommand slalomCommand = new AutonomousTrajectoryCommand(slalomTrajectory);
                 output.addSequential(raiseIntake);
                 output.addSequential(slalomCommand); 
-                // output.addSequential(fastDriveBackCommand); 
-                // output.addSequential(slalomPath2Command); 
-
-
-
                 return output;
         }
 

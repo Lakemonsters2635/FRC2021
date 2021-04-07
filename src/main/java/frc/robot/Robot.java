@@ -233,6 +233,8 @@ m_chooser.addOption("DriveStraightAndBack", AutonomousSequences.DriveStraightFor
  m_chooser.addOption("Bounce2 path", AutonomousSequences.bounce2());
 //  m_chooser.addOption("Slalom Path", AutonomousSequences.slalom());
  m_chooser.addOption("Slalom2 Path", AutonomousSequences.slalom2());
+
+ m_chooser.addOption("Slalom3 Path", AutonomousSequences.slalom3());
   SmartDashboard.putData("Auto mode", m_chooser);
 }
 
