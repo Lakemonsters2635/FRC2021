@@ -74,7 +74,7 @@ public class ShooterCommand extends Command {
         //If we want to use in low position we need to take measurements and calibrate.
         
        executeWithZones();
-   // executeWithSmartDashboard();
+  //  executeWithSmartDashboard();
         //executeWithThrottles(motor1Speed, motor2Speed);
 
     // }

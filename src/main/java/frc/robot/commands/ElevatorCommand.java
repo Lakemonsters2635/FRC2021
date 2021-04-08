@@ -31,8 +31,8 @@ public class ElevatorCommand extends Command {
   @Override
   protected void execute() {
     if (m_reverse) {
-      Robot.elevatorSubsystem.setBeltMotor(0.7);
-      Robot.intakeSubsystem.setKickerMotor(-0.7);
+      Robot.elevatorSubsystem.setBeltMotor(0.8);
+      Robot.intakeSubsystem.setKickerMotor(-0.8);
     } else {
       Robot.elevatorSubsystem.setBeltMotor(-1);
       Robot.intakeSubsystem.setKickerMotor(1);
