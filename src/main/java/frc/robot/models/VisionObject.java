@@ -1,8 +1,12 @@
 package frc.robot.models;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpiutil.CircularBuffer;
 import frc.robot.RobotMap;
+import frc.robot.Robot;
 import frc.robot.subsystems.DrivetrainSubsystem;
+
+import edu.wpi.first.wpilibj.Timer;
 
 public class VisionObject {
     public String objectLabel; 
@@ -27,14 +31,28 @@ public class VisionObject {
         // of the robot.  Therefore, motion in the direction the camera is aiming is returned by
         // getVelocityX() as negative.
             
+            RobotMap.OBJECT_DETECTION_LATENCY = SmartDashboard.getNumber("Object detection latency", 0.217);
             z += drivetrainSubsystem.getKinematicVelocity().x * RobotMap.OBJECT_DETECTION_LATENCY;
             x -= drivetrainSubsystem.getKinematicVelocity().y * RobotMap.OBJECT_DETECTION_LATENCY;
             SmartDashboard.putNumber("X Velocity", drivetrainSubsystem.getKinematicVelocity().x);
             SmartDashboard.putNumber("Z Velocity", drivetrainSubsystem.getKinematicPosition().y);
         }
         
-        double omega = drivetrainSubsystem.getGyroscope().getRate();
-        double theta = omega * RobotMap.OBJECT_DETECTION_LATENCY;
+        // double omega = drivetrainSubsystem.getGyroscope().getRate();
+        // double theta = omega * RobotMap.OBJECT_DETECTION_LATENCY;
+
+        double theta = 0;
+        double targetTime = Timer.getFPGATimestamp() - RobotMap.OBJECT_DETECTION_LATENCY; // seconds
+
+        for (int i = 0; i < Robot.circularBufferSize; i++) {
+            int indexOfInterest = (Robot.bufferSlotNumber + Robot.circularBufferSize - i) % Robot.circularBufferSize; 
+
+            if (Robot.time[indexOfInterest] < targetTime) {
+                theta = drivetrainSubsystem.getGyroscope().getAngle().toRadians() - Robot.angle[Robot.bufferSlotNumber] ;
+                break;
+            }
+        }
+        
         //System.out.println("theta: " + theta); 
 
         double cosTheta = Math.cos(theta);

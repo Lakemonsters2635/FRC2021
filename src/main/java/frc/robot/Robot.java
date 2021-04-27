@@ -17,6 +17,7 @@ import org.frcteam2910.common.robot.commands.ZeroFieldOrientedCommand;
 import org.frcteam2910.common.robot.subsystems.SubsystemManager;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -110,11 +111,21 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
+
+    public static int circularBufferSize = 50;
+    public static int bufferSlotNumber = 0;
+    public static double[] time;
+    public static double[] angle;
+
   @Override
-public void robotInit() {
+public void robotInit() { 
+    time = new double[circularBufferSize]; 
+    angle =  new double[circularBufferSize];
+
     autoHappened = false;
     SmartDashboard.putNumber("motor1Speed", RobotMap.SHOOTER_MOTOR_HIGH_DEFAULT_SPEED);
     SmartDashboard.putNumber("motor2Speed", RobotMap.SHOOTER_MOTOR_HIGH_DEFAULT_SPEED * .75);
+    SmartDashboard.putNumber("Object detection latency", RobotMap.OBJECT_DETECTION_LATENCY);
     oi = new OI();
     //m_chooser.setDefaultOption("Default Auto", new AutonomousCommand());
     initSubsystems();
@@ -235,6 +246,7 @@ m_chooser.addOption("DriveStraightAndBack", AutonomousSequences.DriveStraightFor
  m_chooser.addOption("Slalom2 Path", AutonomousSequences.slalom2());
 
  m_chooser.addOption("Slalom3 Path", AutonomousSequences.slalom3());
+//  m_chooser.addOption("Fetch Power Cell Command", AutonomousSequences.)
   SmartDashboard.putData("Auto mode", m_chooser);
 }
 
@@ -248,6 +260,10 @@ m_chooser.addOption("DriveStraightAndBack", AutonomousSequences.DriveStraightFor
    */
   @Override
   public void robotPeriodic() {
+    time[bufferSlotNumber] = Timer.getFPGATimestamp(); 
+    angle[bufferSlotNumber] = drivetrainSubsystem.getGyroscope().getAngle().toRadians();
+    bufferSlotNumber = (bufferSlotNumber++) % circularBufferSize;
+
     //drivetrainSubsystem.outputToSmartDashboard();
   }
 

@@ -33,7 +33,7 @@ public class FetchPowerCellCommand extends Command {
   public FetchPowerCellCommand() {
     requires(Robot.drivetrainSubsystem);
     //PidConstants PID_CONSTANTS = new PidConstants(0.3, 0.01, 0.0);
-    angleController = new PIDController(0.3, 0.01, 0.0);
+    angleController = new PIDController(0.2, 0.01, 0.0);
     strafeController = new PIDController(0, 0.0, 0.0); // TODO update constants
     forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
    
@@ -43,7 +43,7 @@ public class FetchPowerCellCommand extends Command {
     super(timeout);
     requires(Robot.drivetrainSubsystem);
     //PidConstants PID_CONSTANTS = new PidConstants(0.3, 0.01, 0.0);
-    angleController = new PIDController(0.3, 0.01, 0.0);
+    angleController = new PIDController(0.005, 0.0, 0.0);
     strafeController = new PIDController(0.0, 0.0, 0.0); // TODO update constants
     forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
     // navX = new AHRS(SPI.Port.kMXP, (byte) 200);
@@ -58,6 +58,7 @@ public class FetchPowerCellCommand extends Command {
     SmartDashboard.putNumber("Desired angle", desiredAngle);
     SmartDashboard.putNumber("initial angle", gyroAngle);
     SmartDashboard.putNumber("SetPoint angle", setPointAngle);
+    
     Vector2 position = new Vector2(0, 0);
     Robot.drivetrainSubsystem.resetKinematics(position, 0);
   }
@@ -118,9 +119,10 @@ public class FetchPowerCellCommand extends Command {
     
     final boolean robotOriented = false;
 
-    final Vector2 translation = new Vector2(-forward, -strafe*0);
+    //final Vector2 translation = new Vector2(-forward, -strafe*0);
+    final Vector2 translation = new Vector2(-0.3, -strafe*0);
 
-    Robot.drivetrainSubsystem.holonomicDrive(translation, rotation, !robotOriented);
+    Robot.drivetrainSubsystem.holonomicDrive(translation, rotation, robotOriented);
   }
 
 

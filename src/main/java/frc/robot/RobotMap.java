@@ -85,7 +85,7 @@ public class RobotMap {
 
   public static final double TARGET_TRIGGER_DISTANCE = 26; // inches
 
-  public static final double OBJECT_DETECTION_LATENCY = 0.217; // seconds
+  public static double OBJECT_DETECTION_LATENCY = 0.217; // seconds
   /**
 	 * Which PID slot to pull gains from. Starting 2018, you can choose from
 	 * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
