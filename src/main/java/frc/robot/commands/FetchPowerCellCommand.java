@@ -33,7 +33,7 @@ public class FetchPowerCellCommand extends Command {
   public FetchPowerCellCommand() {
     requires(Robot.drivetrainSubsystem);
     //PidConstants PID_CONSTANTS = new PidConstants(0.3, 0.01, 0.0);
-    angleController = new PIDController(0.2, 0.01, 0.0);
+    angleController = new PIDController(0.3, 0.01, 0.0);
     strafeController = new PIDController(0, 0.0, 0.0); // TODO update constants
     forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
    
@@ -61,6 +61,7 @@ public class FetchPowerCellCommand extends Command {
     
     Vector2 position = new Vector2(0, 0);
     Robot.drivetrainSubsystem.resetKinematics(position, 0);
+    System.out.println("Initialized FPC");
   }
 
   @Override
@@ -128,14 +129,18 @@ public class FetchPowerCellCommand extends Command {
 
 @Override
 protected boolean isFinished() {
-  double tolerance = 2;
-  //VisionObject closestObject = Robot.objectTrackerSubsystem.getClosestObject("powerCell");
-  // if(closestObject == null) {
-  //   return true;
-  // }//TODO could lose sight for small amount of time causing command to finish early
-
-  //return Math.abs(closestObject.z-RobotMap.TARGET_TRIGGER_DISTANCE) <= tolerance;
-  return false;
+  double tolerance = 4;
+  VisionObject closestObject = Robot.objectTrackerSubsystem.getClosestObject("powerCell");
+  if(closestObject == null) {
+    return false;
+  }//TODO could lose sight for small amount of time causing command to finish early
+  
+  boolean done = Math.abs(closestObject.z-RobotMap.TARGET_TRIGGER_DISTANCE) <= tolerance;
+  if (done) {
+    System.out.println("done FPC");
+  }
+  return done;
+  // return false;
   // boolean isFinished = super.isTimedOut();
   // if (isFinished) {
   //   SmartDashboard.putNumber("totalRotation", totalRotation);

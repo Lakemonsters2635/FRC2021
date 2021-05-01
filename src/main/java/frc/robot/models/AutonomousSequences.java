@@ -33,8 +33,24 @@ public class AutonomousSequences {
         public static CommandGroup GoFetchTest() {
                 CommandGroup output = new CommandGroup();
                 FetchPowerCellCommand fpcCommand = new FetchPowerCellCommand();
+                FetchPowerCellCommand fpcCommand1 = new FetchPowerCellCommand();
+                FetchPowerCellCommand fpcCommand2 = new FetchPowerCellCommand();
 
-                output.addSequential(fpcCommand);
+
+                RobotRotateCommand rotateCommand = new RobotRotateCommand(-60);
+                RobotRotateCommand rotateCommand1 = new RobotRotateCommand(100);
+
+
+
+                output.addParallel(fpcCommand);
+                output.addSequential(new IntakeDetectToElevatorIndexCommand(8));
+                output.addSequential(rotateCommand);
+                output.addParallel(fpcCommand1);
+                output.addSequential(new IntakeDetectToElevatorIndexCommand(16));
+                output.addSequential(rotateCommand1);
+                output.addParallel(fpcCommand2);
+                output.addSequential(new IntakeDetectToElevatorIndexCommand(24));
+
                 
                 return output;
         }
