@@ -126,8 +126,8 @@ public void robotInit() {
     SmartDashboard.putNumber("motor1Speed", RobotMap.SHOOTER_MOTOR_HIGH_DEFAULT_SPEED);
     SmartDashboard.putNumber("motor2Speed", RobotMap.SHOOTER_MOTOR_HIGH_DEFAULT_SPEED * .75);
     SmartDashboard.putNumber("Object detection latency", RobotMap.OBJECT_DETECTION_LATENCY);
-    SmartDashboard.putNumber("P", 0.3);
-    SmartDashboard.putNumber("I", 0.01);
+    SmartDashboard.putNumber("P", 0.25);
+    SmartDashboard.putNumber("I", 0.0);
     SmartDashboard.putNumber("D", 0.0);
     SmartDashboard.putNumber("Forward Speed", 0.3);
     oi = new OI();
