@@ -126,6 +126,9 @@ public void robotInit() {
     SmartDashboard.putNumber("motor1Speed", RobotMap.SHOOTER_MOTOR_HIGH_DEFAULT_SPEED);
     SmartDashboard.putNumber("motor2Speed", RobotMap.SHOOTER_MOTOR_HIGH_DEFAULT_SPEED * .75);
     SmartDashboard.putNumber("Object detection latency", RobotMap.OBJECT_DETECTION_LATENCY);
+    SmartDashboard.putNumber("P", 0.3);
+    SmartDashboard.putNumber("I", 0.01);
+    SmartDashboard.putNumber("D", 0.0);
     oi = new OI();
     //m_chooser.setDefaultOption("Default Auto", new AutonomousCommand());
     initSubsystems();
@@ -247,6 +250,7 @@ m_chooser.addOption("DriveStraightAndBack", AutonomousSequences.DriveStraightFor
 
  m_chooser.addOption("Slalom3 Path", AutonomousSequences.slalom3());
 //  m_chooser.addOption("Fetch Power Cell Command", AutonomousSequences.)
+m_chooser.addOption("Fetch Power Cell PID Tuning", AutonomousSequences.FetchPowerCellPidTest()); 
   SmartDashboard.putData("Auto mode", m_chooser);
 }
 

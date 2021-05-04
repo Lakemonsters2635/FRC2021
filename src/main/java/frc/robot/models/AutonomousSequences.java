@@ -19,6 +19,7 @@ import frc.robot.RobotMap;
 import frc.robot.commands.AutonomousTrajectoryCommand;
 import frc.robot.commands.ElevatorCommand;
 import frc.robot.commands.FetchPowerCellCommand;
+import frc.robot.commands.FetchPowerCellPidTestCommand;
 import frc.robot.commands.GalacticSearchCommand;
 import frc.robot.commands.IntakeActuateCommand;
 import frc.robot.commands.IntakeCommand;
@@ -29,6 +30,13 @@ import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.VisionRotationDriveCommand;
 
 public class AutonomousSequences {
+
+        public static CommandGroup FetchPowerCellPidTest() {
+                CommandGroup output = new CommandGroup(); 
+                FetchPowerCellPidTestCommand tunePIDCommand = new FetchPowerCellPidTestCommand(); 
+                output.addSequential(tunePIDCommand); 
+                return output; 
+        }
 
         public static CommandGroup GoFetchTest() {
                 CommandGroup output = new CommandGroup();
@@ -54,6 +62,7 @@ public class AutonomousSequences {
                 
                 return output;
         }
+
         public static CommandGroup PathArcTest() {
                 double radius = 50;
                 CommandGroup output = new CommandGroup();
