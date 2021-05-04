@@ -33,7 +33,7 @@ public class FetchPowerCellCommand extends Command {
   public FetchPowerCellCommand() {
     requires(Robot.drivetrainSubsystem);
     //PidConstants PID_CONSTANTS = new PidConstants(0.3, 0.01, 0.0);
-    angleController = new PIDController(0.3, 0.01, 0.0);
+    angleController = new PIDController(0.25, 0.0, 0.0);
     strafeController = new PIDController(0, 0.0, 0.0); // TODO update constants
     forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
    

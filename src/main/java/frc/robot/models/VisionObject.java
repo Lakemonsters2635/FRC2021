@@ -26,12 +26,11 @@ public class VisionObject {
 
     public void motionCompensate(DrivetrainSubsystem drivetrainSubsystem, boolean compensateTranslation)
     {
+        RobotMap.OBJECT_DETECTION_LATENCY = SmartDashboard.getNumber("Object detection latency", 0.217);
         if (compensateTranslation) {
         // Normally, we'd subtract the distance travelled.  However, the camera points off the back
         // of the robot.  Therefore, motion in the direction the camera is aiming is returned by
         // getVelocityX() as negative.
-            
-            RobotMap.OBJECT_DETECTION_LATENCY = SmartDashboard.getNumber("Object detection latency", 0.217);
             z += drivetrainSubsystem.getKinematicVelocity().x * RobotMap.OBJECT_DETECTION_LATENCY;
             x -= drivetrainSubsystem.getKinematicVelocity().y * RobotMap.OBJECT_DETECTION_LATENCY;
             SmartDashboard.putNumber("X Velocity", drivetrainSubsystem.getKinematicVelocity().x);

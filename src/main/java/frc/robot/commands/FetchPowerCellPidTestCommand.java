@@ -120,7 +120,7 @@ public class FetchPowerCellPidTestCommand extends Command {
     final boolean robotOriented = false;
 
     //final Vector2 translation = new Vector2(-forward, -strafe*0);
-    final Vector2 translation = new Vector2(-0.3, -strafe*0);
+    final Vector2 translation = new Vector2(-1 * SmartDashboard.getNumber("Forward Speed", 0.3), -strafe*0);
 
     Robot.drivetrainSubsystem.holonomicDrive(translation, rotation, robotOriented);
   }

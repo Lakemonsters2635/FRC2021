@@ -129,6 +129,7 @@ public void robotInit() {
     SmartDashboard.putNumber("P", 0.3);
     SmartDashboard.putNumber("I", 0.01);
     SmartDashboard.putNumber("D", 0.0);
+    SmartDashboard.putNumber("Forward Speed", 0.3);
     oi = new OI();
     //m_chooser.setDefaultOption("Default Auto", new AutonomousCommand());
     initSubsystems();
