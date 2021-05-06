@@ -33,20 +33,22 @@ public class FetchPowerCellPidTestCommand extends Command {
   public FetchPowerCellPidTestCommand() {
     requires(Robot.drivetrainSubsystem);
     //PidConstants PID_CONSTANTS = new PidConstants(0.3, 0.01, 0.0);
-    angleController = new PIDController(0.3, 0.01, 0.0);
-    strafeController = new PIDController(0, 0.0, 0.0); // TODO update constants
-    forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
+    initPid();
   }
 
   public FetchPowerCellPidTestCommand(double timeout) {
     super(timeout);
     requires(Robot.drivetrainSubsystem);
     //PidConstants PID_CONSTANTS = new PidConstants(0.3, 0.01, 0.0);
-    angleController = new PIDController(0.005, 0.0, 0.0);
-    strafeController = new PIDController(0.0, 0.0, 0.0); // TODO update constants
-    forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
+    initPid();
     // navX = new AHRS(SPI.Port.kMXP, (byte) 200);
     
+  }
+
+  protected void initPid() {
+    angleController = new PIDController(0.3, 0.01, 0.0);
+    strafeController = new PIDController(0.005, 0.0, 0.0); // TODO update constants
+    forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
   }
 
   @Override
@@ -65,7 +67,8 @@ public class FetchPowerCellPidTestCommand extends Command {
 
   @Override
   protected void execute() {
-    angleController.setPID(SmartDashboard.getNumber("P", 0.3), SmartDashboard.getNumber("I", 0.01), SmartDashboard.getNumber("D", 0));
+    angleController.setPID(SmartDashboard.getNumber("angleP", 0.3), SmartDashboard.getNumber("angleI", 0.01), SmartDashboard.getNumber("angleD", 0));
+    strafeController.setPID(SmartDashboard.getNumber("strafeP", 0.005), SmartDashboard.getNumber("strafeI", 0.0), SmartDashboard.getNumber("strafeD", 0));
     Robot.objectTrackerSubsystem.data();
     double forward = 0;
     double strafe = 0;
@@ -82,7 +85,7 @@ public class FetchPowerCellPidTestCommand extends Command {
     double angle =  Math.atan2(closestObject.x, closestObject.z);
     
     angleController.setSetpoint(angle);
-    rotation = angleController.calculate(0);
+    rotation = angleController.calculate(0) * 0;
     
     if(rotation > 1){
       rotation = 1;
@@ -94,7 +97,7 @@ public class FetchPowerCellPidTestCommand extends Command {
     SmartDashboard.putNumber("driveRotation", rotation);
     
     // strafe
-    //strafeController.setSetpoint(closestObject.x);
+    strafeController.setSetpoint(closestObject.x);
     strafe = strafeController.calculate(0);
 
     if(strafe > 1){
@@ -120,7 +123,7 @@ public class FetchPowerCellPidTestCommand extends Command {
     final boolean robotOriented = false;
 
     //final Vector2 translation = new Vector2(-forward, -strafe*0);
-    final Vector2 translation = new Vector2(-1 * SmartDashboard.getNumber("Forward Speed", 0.3), -strafe*0);
+    final Vector2 translation = new Vector2(-1 * SmartDashboard.getNumber("Forward Speed", 0.3), strafe);
 
     Robot.drivetrainSubsystem.holonomicDrive(translation, rotation, robotOriented);
   }

@@ -14,11 +14,13 @@ public class FetchCollectPowerCellCommand extends CommandGroup {
    * Add your docs here.
    */
   public FetchCollectPowerCellCommand() {
+    FetchPowerCellCommand fetchPowerCellCommand = new FetchPowerCellCommand();
     AreWeThereYetCommand areWeThereYetCommand = new AreWeThereYetCommand();
     IntakeActuateCommand lowerIntakeCommand = new IntakeActuateCommand(false,1);
     IntakeDetectCommand intakeDetectCommand = new IntakeDetectCommand();
     ElevatorIndexCommand elevatorIndexCommand = new ElevatorIndexCommand(true, 35);
 
+    addParallel(fetchPowerCellCommand);
     addSequential(areWeThereYetCommand);
     addSequential(lowerIntakeCommand);
     addSequential(intakeDetectCommand);

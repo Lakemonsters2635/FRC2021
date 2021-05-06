@@ -30,9 +30,9 @@ public class ElevatorIndexCommand extends Command {
   protected void execute() {
     Robot.elevatorSubsystem.PIDDrive();
     if(up) {
-      Robot.intakeSubsystem.setKickerMotor(1);
+      Robot.intakeSubsystem.setKickerMotor(0.5);
     } else {
-      Robot.intakeSubsystem.setKickerMotor(-1);
+      Robot.intakeSubsystem.setKickerMotor(-0.5);
     }
   }
 

@@ -32,22 +32,21 @@ public class FetchPowerCellCommand extends Command {
   public double totalRotation = 0;
   public FetchPowerCellCommand() {
     requires(Robot.drivetrainSubsystem);
-    //PidConstants PID_CONSTANTS = new PidConstants(0.3, 0.01, 0.0);
-    angleController = new PIDController(0.25, 0.0, 0.0);
-    strafeController = new PIDController(0, 0.0, 0.0); // TODO update constants
-    forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
-   
+    initPID();    
   }
 
   public FetchPowerCellCommand(double timeout) {
     super(timeout);
     requires(Robot.drivetrainSubsystem);
-    //PidConstants PID_CONSTANTS = new PidConstants(0.3, 0.01, 0.0);
-    angleController = new PIDController(0.005, 0.0, 0.0);
-    strafeController = new PIDController(0.0, 0.0, 0.0); // TODO update constants
-    forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
-    // navX = new AHRS(SPI.Port.kMXP, (byte) 200);
+    initPID();
     
+  }
+
+  protected void initPID(){
+    angleController = new PIDController(0.25, 0.0, 0.0);
+    strafeController = new PIDController(0.009, 0.0, 0.0); // TODO update constants
+    forwardController = new PIDController(0.05, 0.01, 0.0); // TODO update constants
+   
   }
 
   @Override
@@ -83,7 +82,7 @@ public class FetchPowerCellCommand extends Command {
     double angle =  Math.atan2(closestObject.x, closestObject.z);
     
     angleController.setSetpoint(angle);
-    rotation = angleController.calculate(0);
+    rotation = angleController.calculate(0) * 0;
     
     if(rotation > 1){
       rotation = 1;
@@ -95,7 +94,7 @@ public class FetchPowerCellCommand extends Command {
     SmartDashboard.putNumber("driveRotation", rotation);
     
     // strafe
-    //strafeController.setSetpoint(closestObject.x);
+    strafeController.setSetpoint(closestObject.x);
     strafe = strafeController.calculate(0);
 
     if(strafe > 1){
@@ -121,7 +120,7 @@ public class FetchPowerCellCommand extends Command {
     final boolean robotOriented = false;
 
     //final Vector2 translation = new Vector2(-forward, -strafe*0);
-    final Vector2 translation = new Vector2(-0.3, -strafe*0);
+    final Vector2 translation = new Vector2(-0.5, strafe);
 
     Robot.drivetrainSubsystem.holonomicDrive(translation, rotation, robotOriented);
   }
