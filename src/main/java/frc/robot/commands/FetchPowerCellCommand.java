@@ -32,13 +32,13 @@ public class FetchPowerCellCommand extends Command {
   public double totalRotation = 0;
   public FetchPowerCellCommand() {
     requires(Robot.drivetrainSubsystem);
-    initPID();    
+    //initPID();    
   }
 
   public FetchPowerCellCommand(double timeout) {
     super(timeout);
     requires(Robot.drivetrainSubsystem);
-    initPID();
+    //initPID();
     
   }
 
@@ -51,7 +51,7 @@ public class FetchPowerCellCommand extends Command {
 
   @Override
   protected void initialize() {
-    
+    initPID();
     
     SmartDashboard.putNumber("Vision angle", angle);
     SmartDashboard.putNumber("Desired angle", desiredAngle);
@@ -120,8 +120,8 @@ public class FetchPowerCellCommand extends Command {
     final boolean robotOriented = false;
 
     //final Vector2 translation = new Vector2(-forward, -strafe*0);
-    final Vector2 translation = new Vector2(-0.5, strafe);
-
+    final Vector2 translation = new Vector2(-0.5*0, strafe);
+    //System.out.println("Strafe: " + strafe);
     Robot.drivetrainSubsystem.holonomicDrive(translation, rotation, robotOriented);
   }
 

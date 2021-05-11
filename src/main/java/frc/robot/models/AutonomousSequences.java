@@ -50,22 +50,22 @@ public class AutonomousSequences {
                 CommandGroup output = new CommandGroup();
                 FetchPowerCellCommand fpcCommand = new FetchPowerCellCommand();
                 FetchPowerCellCommand fpcCommand1 = new FetchPowerCellCommand();
-                // FetchPowerCellCommand fpcCommand2 = new FetchPowerCellCommand();
+                 FetchPowerCellCommand fpcCommand2 = new FetchPowerCellCommand();
 
 
-                RobotRotateCommand rotateCommand = new RobotRotateCommand(-40);
-                // RobotRotateCommand rotateCommand1 = new RobotRotateCommand(100);
+                RobotRotateCommand rotateCommand = new RobotRotateCommand(70);
+                 RobotRotateCommand rotateCommand1 = new RobotRotateCommand(-70);
 
 
 
-                output.addParallel(fpcCommand);
-                output.addSequential(new IntakeDetectToElevatorIndexCommand(8));
+                // output.addParallel(fpcCommand);
+                // output.addSequential(new IntakeDetectToElevatorIndexCommand(8));
                 output.addSequential(rotateCommand);
-                output.addParallel(fpcCommand1);
-                output.addSequential(new IntakeDetectToElevatorIndexCommand(20));
-                // output.addSequential(rotateCommand1);
-                // output.addParallel(fpcCommand2);
-                // output.addSequential(new IntakeDetectToElevatorIndexCommand(24));
+                // output.addParallel(fpcCommand1);
+                // output.addSequential(new IntakeDetectToElevatorIndexCommand(20));
+                 output.addSequential(rotateCommand1);
+                 output.addParallel(fpcCommand2);
+                 output.addSequential(new IntakeDetectToElevatorIndexCommand(24));
 
                 
                 return output;

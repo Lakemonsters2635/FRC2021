@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import org.frcteam2910.common.math.Vector2;
 
@@ -53,18 +54,23 @@ public class RobotRotateCommand extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-     if (super.isTimedOut())
-     {
-      System.out.println("Rotation timed out");
-       return true;
+    //  if (super.isTimedOut())
+    //  {
+    //   System.out.println("Rotation timed out");
+    //    return true;
 
-     }
-     double absoluteCurrentAngle = Math.abs(currentAngle);
-     double absoluteTargetAngle = Math.abs(targetAngle);
+    //  }
+    //  double absoluteCurrentAngle = Math.abs(currentAngle);
+    //  double absoluteTargetAngle = Math.abs(targetAngle);
+    double absoluteCurrentAngle = currentAngle;
+     double absoluteTargetAngle = targetAngle;
 
      double angleDelta = Math.abs(absoluteCurrentAngle - absoluteTargetAngle);
-    //if(currentAngle > targetAngle - 2 && currentAngle < targetAngle + 2 ) 
-    if (angleDelta < 2)
+    //if(currentAngle > targetAngle - 2 && currentAngle < targetAngle + 2 )
+
+    double omega = Robot.drivetrainSubsystem.getGyroscope().getRate();
+    
+    if ((angleDelta < 2 || (angleDelta > 358 && angleDelta < 362)) && Math.abs(omega) < 0.001)
     {
       System.out.println("Rotation finished");
       return true;

@@ -134,6 +134,8 @@ public void robotInit() {
     SmartDashboard.putNumber("strafeI", 0.0);
     SmartDashboard.putNumber("strafeD", 0.0);
     SmartDashboard.putNumber("Forward Speed", 0.5);
+
+    
     oi = new OI();
     //m_chooser.setDefaultOption("Default Auto", new AutonomousCommand());
     initSubsystems();
