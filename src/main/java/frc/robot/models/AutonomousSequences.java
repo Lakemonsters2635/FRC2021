@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.AutonomousTrajectoryCommand;
+import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.ElevatorCommand;
 import frc.robot.commands.FetchCollectPowerCellCommand;
 import frc.robot.commands.FetchPowerCellCommand;
@@ -50,22 +51,35 @@ public class AutonomousSequences {
                 CommandGroup output = new CommandGroup();
                 FetchPowerCellCommand fpcCommand = new FetchPowerCellCommand();
                 FetchPowerCellCommand fpcCommand1 = new FetchPowerCellCommand();
-                 FetchPowerCellCommand fpcCommand2 = new FetchPowerCellCommand();
+                FetchPowerCellCommand fpcCommand2 = new FetchPowerCellCommand();
+                DoNothingCommand doNothing = new DoNothingCommand(5);
+
+                RobotRotateCommand rotateCommand = new RobotRotateCommand(-60);
+                RobotRotateCommand rotateCommand1 = new RobotRotateCommand(100);
+
+                Path goToEnd = new Path(Rotation2.ZERO);
+                goToEnd.addSegment(
+                        new PathLineSegment(
+                                new Vector2(0, 0), 
+                                new Vector2(-55, -40)
+                                )
+                );
+
+                Trajectory goToEndTrajectory = new Trajectory(goToEnd, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
+                AutonomousTrajectoryCommand goToEndCommand = new AutonomousTrajectoryCommand(goToEndTrajectory);
 
 
-                RobotRotateCommand rotateCommand = new RobotRotateCommand(70);
-                 RobotRotateCommand rotateCommand1 = new RobotRotateCommand(-70);
-
-
-
-                // output.addParallel(fpcCommand);
-                // output.addSequential(new IntakeDetectToElevatorIndexCommand(8));
+                output.addParallel(fpcCommand);
+                output.addSequential(new IntakeDetectToElevatorIndexCommand(8));
                 output.addSequential(rotateCommand);
-                // output.addParallel(fpcCommand1);
-                // output.addSequential(new IntakeDetectToElevatorIndexCommand(20));
-                 output.addSequential(rotateCommand1);
-                 output.addParallel(fpcCommand2);
-                 output.addSequential(new IntakeDetectToElevatorIndexCommand(24));
+                output.addParallel(fpcCommand1);
+                output.addSequential(new IntakeDetectToElevatorIndexCommand(20));
+                output.addSequential(rotateCommand1);
+                // output.addSequential(doNothing);
+                output.addParallel(fpcCommand2);
+                output.addSequential(new IntakeDetectToElevatorIndexCommand(24));
+                output.addSequential(goToEndCommand);
+                
 
                 
                 return output;

@@ -27,6 +27,7 @@ public class VisionObject {
     public void motionCompensate(DrivetrainSubsystem drivetrainSubsystem, boolean compensateTranslation)
     {
         RobotMap.OBJECT_DETECTION_LATENCY = SmartDashboard.getNumber("Object detection latency", 0.217);
+        /*
         if (compensateTranslation) {
         // Normally, we'd subtract the distance travelled.  However, the camera points off the back
         // of the robot.  Therefore, motion in the direction the camera is aiming is returned by
@@ -36,6 +37,7 @@ public class VisionObject {
             SmartDashboard.putNumber("X Velocity", drivetrainSubsystem.getKinematicVelocity().x);
             SmartDashboard.putNumber("Z Velocity", drivetrainSubsystem.getKinematicPosition().y);
         }
+        */
         
         // double omega = drivetrainSubsystem.getGyroscope().getRate();
         // double theta = omega * RobotMap.OBJECT_DETECTION_LATENCY;
@@ -60,8 +62,8 @@ public class VisionObject {
         double newZ = z * cosTheta - x * sinTheta;
         double newX = z * sinTheta + x * cosTheta;
 
-        z = newZ;
-        x = newX;
+        // z = newZ;
+        // x = newX;
     }
 };
 

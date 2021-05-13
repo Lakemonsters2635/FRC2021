@@ -24,8 +24,9 @@ public class RobotRotateCommand extends Command {
   public RobotRotateCommand(double angle) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    super(1);
-    angleController = new PIDController(0.005, 0.001, 0.0);
+    super(3);
+    requires(Robot.drivetrainSubsystem);
+    angleController = new PIDController(0.005, 0.002, 0.0);
     angleController.enableContinuousInput(-180, 180);
     this.targetAngle = angle;
   }
@@ -54,23 +55,17 @@ public class RobotRotateCommand extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    //  if (super.isTimedOut())
-    //  {
-    //   System.out.println("Rotation timed out");
-    //    return true;
-
-    //  }
-    //  double absoluteCurrentAngle = Math.abs(currentAngle);
-    //  double absoluteTargetAngle = Math.abs(targetAngle);
-    double absoluteCurrentAngle = currentAngle;
-     double absoluteTargetAngle = targetAngle;
-
-     double angleDelta = Math.abs(absoluteCurrentAngle - absoluteTargetAngle);
+     if (super.isTimedOut())
+     {
+      System.out.println("Rotation timed out");
+       return true;
+     }
+     double angleDelta = Math.abs(currentAngle - targetAngle);
     //if(currentAngle > targetAngle - 2 && currentAngle < targetAngle + 2 )
 
     double omega = Robot.drivetrainSubsystem.getGyroscope().getRate();
     
-    if ((angleDelta < 2 || (angleDelta > 358 && angleDelta < 362)) && Math.abs(omega) < 0.001)
+    if ((angleDelta < 2 || (angleDelta > 358 && angleDelta < 362)) && Math.abs(omega) < 0.003)
     {
       System.out.println("Rotation finished");
       return true;

@@ -28,6 +28,8 @@ public class FetchPowerCellCommand extends Command {
   double angle;
   double desiredAngle;
   double setPointAngle=6;
+  boolean isClose;
+  double v;
 
   public double totalRotation = 0;
   public FetchPowerCellCommand() {
@@ -61,6 +63,8 @@ public class FetchPowerCellCommand extends Command {
     Vector2 position = new Vector2(0, 0);
     Robot.drivetrainSubsystem.resetKinematics(position, 0);
     System.out.println("Initialized FPC");
+
+    isClose = false;
   }
 
   @Override
@@ -77,6 +81,7 @@ public class FetchPowerCellCommand extends Command {
        Robot.drivetrainSubsystem.holonomicDrive(new Vector2(0,0), 0, false);
        return; // no object found
      }
+     System.out.println("Closest z: " + closestObject.z);
      closestObject.motionCompensate(Robot.drivetrainSubsystem, true);
   
     double angle =  Math.atan2(closestObject.x, closestObject.z);
@@ -120,7 +125,15 @@ public class FetchPowerCellCommand extends Command {
     final boolean robotOriented = false;
 
     //final Vector2 translation = new Vector2(-forward, -strafe*0);
-    final Vector2 translation = new Vector2(-0.5*0, strafe);
+  
+    v = -0.65;  
+    
+    //  if (closestObject.z < 60) {
+    //    isClose = true;
+    // //   v = -0.05;
+     
+    //  }
+    final Vector2 translation = new Vector2(v, strafe);
     //System.out.println("Strafe: " + strafe);
     Robot.drivetrainSubsystem.holonomicDrive(translation, rotation, robotOriented);
   }
@@ -134,11 +147,12 @@ protected boolean isFinished() {
     return false;
   }//TODO could lose sight for small amount of time causing command to finish early
   
-  boolean done = Math.abs(closestObject.z-RobotMap.TARGET_TRIGGER_DISTANCE) <= tolerance;
-  if (done) {
-    System.out.println("done FPC");
-  }
-  return done;
+  //boolean done = Math.abs(closestObject.z-RobotMap.TARGET_TRIGGER_DISTANCE) <= tolerance;
+  isClose = Math.abs(closestObject.z-RobotMap.TARGET_TRIGGER_DISTANCE) <= tolerance;
+  // if (done) {
+  //   System.out.println("done FPC");
+  // }
+  return isClose;
   // return false;
   // boolean isFinished = super.isTimedOut();
   // if (isFinished) {
