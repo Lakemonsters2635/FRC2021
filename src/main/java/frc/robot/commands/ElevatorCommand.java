@@ -34,8 +34,8 @@ public class ElevatorCommand extends Command {
       Robot.elevatorSubsystem.setBeltMotor(0.8);
       Robot.intakeSubsystem.setKickerMotor(-0.8);
     } else {
-      Robot.elevatorSubsystem.setBeltMotor(-0.6);
-      Robot.intakeSubsystem.setKickerMotor(0.6);
+      Robot.elevatorSubsystem.setBeltMotor(-0.8);
+      Robot.intakeSubsystem.setKickerMotor(0.8);
     }
 
   }

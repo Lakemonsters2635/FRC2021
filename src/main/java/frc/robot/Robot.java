@@ -275,7 +275,7 @@ m_chooser.addOption("Fetch Power Cell PID Tuning", AutonomousSequences.FetchPowe
     angle[bufferSlotNumber] = drivetrainSubsystem.getGyroscope().getAngle().toRadians();
     bufferSlotNumber = (bufferSlotNumber++) % circularBufferSize;
 
-    //drivetrainSubsystem.outputToSmartDashboard();
+    drivetrainSubsystem.outputToSmartDashboard();
   }
 
   /**

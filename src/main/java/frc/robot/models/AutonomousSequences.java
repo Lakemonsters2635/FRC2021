@@ -57,11 +57,64 @@ public class AutonomousSequences {
                 RobotRotateCommand rotateCommand = new RobotRotateCommand(-60);
                 RobotRotateCommand rotateCommand1 = new RobotRotateCommand(100);
 
+
+                Path rotatePath = new Path(Rotation2.ZERO);
+                rotatePath.addSegment(
+                        new PathLineSegment(
+                                new Vector2(0.0, 0.0), 
+                                new Vector2(-3.0, 0)
+                                ),
+                        Rotation2.fromDegrees(-72)
+                );
+                rotatePath.addSegment(
+                        new PathLineSegment(
+                                new Vector2(0.0, 0.0), 
+                                new Vector2(-3.0, 0)
+                                ),
+                        Rotation2.fromDegrees(-72)
+                );
+                // rotatePath.addSegment(
+                //         new PathLineSegment(
+                //                 new Vector2(0.0, 0.0), 
+                //                 new Vector2(-1.0, 0.0)
+                //         )
+                // );
+                rotatePath.subdivide(8);
+                Trajectory rotatePathTrajectory = new Trajectory(rotatePath, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
+                AutonomousTrajectoryCommand rotatePathCommand = new AutonomousTrajectoryCommand(rotatePathTrajectory);
+
+                Path rotatePath2 = new Path(Rotation2.ZERO);
+                rotatePath2.addSegment(
+                        new PathLineSegment(
+                                new Vector2(0.0, 0.0), 
+                                new Vector2(-3.0, 0)
+                                ),
+                        Rotation2.fromDegrees(120)
+                );
+                rotatePath2.addSegment(
+                        new PathLineSegment(
+                                new Vector2(0.0, 0.0), 
+                                new Vector2(-3.0, 0)
+                                ),
+                        Rotation2.fromDegrees(120)
+                );
+                // rotatePath2.addSegment(
+                //         new PathLineSegment(
+                //                 new Vector2(0.0, 0.0), 
+                //                 new Vector2(-1.0, 0.0)
+                //                 )
+                // );
+
+                rotatePath2.subdivide(8);
+                Trajectory rotatePath2Trajectory = new Trajectory(rotatePath2, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
+                AutonomousTrajectoryCommand rotatePath2Command = new AutonomousTrajectoryCommand(rotatePath2Trajectory);
+
+
                 Path goToEnd = new Path(Rotation2.ZERO);
                 goToEnd.addSegment(
                         new PathLineSegment(
                                 new Vector2(0, 0), 
-                                new Vector2(-55, -40)
+                                new Vector2(-100, -80)
                                 )
                 );
 
@@ -71,13 +124,14 @@ public class AutonomousSequences {
 
                 output.addParallel(fpcCommand);
                 output.addSequential(new IntakeDetectToElevatorIndexCommand(8));
-                output.addSequential(rotateCommand);
+                // output.addSequential(rotateCommand);
+                output.addSequential(rotatePathCommand);
                 output.addParallel(fpcCommand1);
                 output.addSequential(new IntakeDetectToElevatorIndexCommand(20));
-                output.addSequential(rotateCommand1);
-                // output.addSequential(doNothing);
+                output.addSequential(rotatePath2Command);
+                // // output.addSequential(doNothing);
                 output.addParallel(fpcCommand2);
-                output.addSequential(new IntakeDetectToElevatorIndexCommand(24));
+                output.addSequential(new IntakeDetectToElevatorIndexCommand(32));
                 output.addSequential(goToEndCommand);
                 
 
@@ -223,10 +277,12 @@ public class AutonomousSequences {
                 driveForward1.addSegment(
                         new PathLineSegment(
                                 new Vector2(0.0,0.0), 
-                                new Vector2(-30, 0.0)
-                        )
+                                new Vector2(-3, 0.0)
+                        ),
+                        Rotation2.fromDegrees(-170)
                 );
-                
+
+                driveForward1.subdivide(8);                
                 Trajectory driveForwardTrajectory1 = new Trajectory(driveForward1, Robot.drivetrainSubsystem.CONSTRAINTS);
                 AutonomousTrajectoryCommand driveForwardCommand1 = new AutonomousTrajectoryCommand(driveForwardTrajectory1);
 
@@ -256,7 +312,7 @@ public class AutonomousSequences {
                 driveForward4.addSegment(
                         new PathLineSegment(
                                 new Vector2(0.0,0.0), 
-                                new Vector2(-30, 0.0)
+                                new Vector2(-0.1, 0.0)
                         )
                 );
             
@@ -265,13 +321,13 @@ public class AutonomousSequences {
 
 
 
-                output.addSequential(rotateCommand, 2);
-                //output.addSequential(driveForwardCommand1);
-                output.addSequential(rotateCommand2, 2);
+                // output.addSequential(rotateCommand, 2);
+                output.addSequential(driveForwardCommand1);
+                // output.addSequential(rotateCommand2, 2);
                 //output.addSequential(driveForwardCommand4);
-                output.addSequential(rotateCommand3, 2);
+                // output.addSequential(rotateCommand3, 2);
                 //output.addSequential(driveForwardCommand4);
-                output.addSequential(rotateCommand4, 2);
+                // output.addSequential(rotateCommand4, 2);
                 //output.addSequential(driveForwardCommand4);
                 return output;
                 //-----------------------------------------------------------

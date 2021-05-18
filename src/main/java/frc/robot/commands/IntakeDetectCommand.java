@@ -38,7 +38,7 @@ public class IntakeDetectCommand extends Command {
     //SmartDashboard.putNumber("Kicker Current", Robot.intakeSubsystem.getKickerCurrent());
     counter++;
 
-    if(Robot.intakeSubsystem.getKickerCurrent() > 4 && counter > 10) {
+    if(Robot.intakeSubsystem.getKickerCurrent() > 6 && counter > 10) {
       current = true;
     }
       

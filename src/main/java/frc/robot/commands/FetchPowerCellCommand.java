@@ -126,7 +126,7 @@ public class FetchPowerCellCommand extends Command {
 
     //final Vector2 translation = new Vector2(-forward, -strafe*0);
   
-    v = -0.65;  
+    v = -0.5;  
     
     //  if (closestObject.z < 60) {
     //    isClose = true;
