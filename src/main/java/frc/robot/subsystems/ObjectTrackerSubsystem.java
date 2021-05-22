@@ -50,7 +50,6 @@ public class ObjectTrackerSubsystem extends Subsystem {
                  
     }
     
-
     
     public void data() {
         Gson gson = new Gson();
@@ -60,7 +59,9 @@ public class ObjectTrackerSubsystem extends Subsystem {
         }
         jsonString = entry.getString("ObjectTracker");
         foundObjects = gson.fromJson(jsonString, VisionObject[].class);
-        
+        // for (VisionObject object : foundObjects){
+        //     System.out.format("%s %.1f %.1f %.1f %.1f\n",object.objectLabel, object.x, object.y, object.z, object.confidence);
+        // }       
     }
     
     public String getObjectsJson()
@@ -118,13 +119,14 @@ public class ObjectTrackerSubsystem extends Subsystem {
 
         if (foundObjects == null || foundObjects.length == 0)
             return null;
-
+        // System.out.println("LINE 122!!!!!!!!!!!!!!");
         List<VisionObject> filteredResult = Arrays.asList(foundObjects)
             .stream()
-            .filter(vo -> vo.objectLabel.equals(objectLabel) && vo.confidence > 25)
+            .filter(vo -> vo.objectLabel.equals(objectLabel) && vo.confidence > .40)
             .collect(Collectors.toList());
 
         VisionObject filteredArray[] = new VisionObject[filteredResult.size()];
+        // System.out.println(filteredResult.size());
         return filteredResult.toArray(filteredArray);
 
     }

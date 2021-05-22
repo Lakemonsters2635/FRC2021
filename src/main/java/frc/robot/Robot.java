@@ -418,6 +418,6 @@ public void testInit(){
   @Override
   public void testPeriodic() {
     //drivetrainSubsystem.updateKinematics(UPDATE_DT);
-    //drivetrainSubsystem.outputToSmartDashboard();
+    drivetrainSubsystem.outputToSmartDashboard();
   }
 }

@@ -121,7 +121,7 @@ public class AutonomousSequences {
                 Trajectory goToEndTrajectory = new Trajectory(goToEnd, Robot.drivetrainSubsystem.AUTONOMOUS_CONSTRAINTS);
                 AutonomousTrajectoryCommand goToEndCommand = new AutonomousTrajectoryCommand(goToEndTrajectory);
 
-
+                
                 output.addParallel(fpcCommand);
                 output.addSequential(new IntakeDetectToElevatorIndexCommand(8));
                 // output.addSequential(rotateCommand);

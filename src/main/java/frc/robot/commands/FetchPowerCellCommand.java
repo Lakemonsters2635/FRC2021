@@ -54,6 +54,7 @@ public class FetchPowerCellCommand extends Command {
   @Override
   protected void initialize() {
     initPID();
+    System.out.println("FPC start");
     
     SmartDashboard.putNumber("Vision angle", angle);
     SmartDashboard.putNumber("Desired angle", desiredAngle);
@@ -74,8 +75,7 @@ public class FetchPowerCellCommand extends Command {
     double forward = 0;
     double strafe = 0;
     double rotation = 0;
-
-     VisionObject closestObject = Robot.objectTrackerSubsystem.getClosestObject("powerCell");
+    VisionObject closestObject = Robot.objectTrackerSubsystem.getClosestObject("powerCell");
      if (closestObject == null) {
        SmartDashboard.putNumber("driveRotation", 99);
        Robot.drivetrainSubsystem.holonomicDrive(new Vector2(0,0), 0, false);
@@ -134,7 +134,7 @@ public class FetchPowerCellCommand extends Command {
      
     //  }
     final Vector2 translation = new Vector2(v, strafe);
-    //System.out.println("Strafe: " + strafe);
+    System.out.println("translation: " + translation);
     Robot.drivetrainSubsystem.holonomicDrive(translation, rotation, robotOriented);
   }
 
@@ -152,6 +152,9 @@ protected boolean isFinished() {
   // if (done) {
   //   System.out.println("done FPC");
   // }
+  if (isClose) {
+    System.out.println("FPC done");
+  }
   return isClose;
   // return false;
   // boolean isFinished = super.isTimedOut();
